@@ -1,6 +1,7 @@
 package com.example.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.util.Date;
 
 @Entity
@@ -11,17 +12,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Le prénom est obligatoire")
+    @Size(max = 50, message = "Le prénom ne doit pas dépasser 50 caractères")
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
+    @NotBlank(message = "Le nom est obligatoire")
+    @Size(max = 50, message = "Le nom ne doit pas dépasser 50 caractères")
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
+    @NotBlank(message = "L'email est obligatoire")
+    @Email(message = "L'email doit être valide")
+    @Size(max = 100, message = "L'email ne doit pas dépasser 100 caractères")
     @Column(unique = true, nullable = false, length = 100)
     private String email;
 
+    @NotBlank(message = "Le mot de passe est obligatoire")
     @Column(nullable = false, length = 60)
     private String password;
+
+    @Column(nullable = false, length = 20)
+    private String role;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -30,6 +42,7 @@ public class User {
     // Constructeur par défaut requis par Hibernate
     public User() {
         this.createdAt = new Date();
+        this.role = "USER"; // Rôle par défaut
     }
 
     public User(String firstName, String lastName, String email, String password) {
@@ -38,6 +51,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.createdAt = new Date();
+        this.role = "USER"; // Rôle par défaut
     }
 
     // Getters et Setters
@@ -89,8 +103,16 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+        return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", role=" + role + "]";
     }
 }

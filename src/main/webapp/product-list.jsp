@@ -20,6 +20,7 @@
     <tr>
         <th>ID</th>
         <th>Nom</th>
+        <th>Catégorie</th>
         <th>Prix</th>
         <th>Stock</th>
         <th>SKU</th>
@@ -31,6 +32,7 @@
         <tr>
             <td><c:out value="${product.id}" /></td>
             <td><c:out value="${product.name}" /></td>
+            <td><c:out value="${product.category != null ? product.category.name : 'Aucune'}" /></td>
             <td><c:out value="${product.price}" /> €</td>
             <td><c:out value="${product.stockQuantity}" /></td>
             <td><c:out value="${product.sku}" /></td>

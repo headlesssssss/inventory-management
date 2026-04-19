@@ -12,24 +12,36 @@
 
 <div class="form-group">
     <label for="firstName">Prénom</label>
-    <input type="text" class="form-control" id="firstName" name="firstName" value="<c:out value='${user.firstName}' />" required>
+    <input type="text" class="form-control <c:if test='${errors != null && errors.firstName != null}'>is-invalid</c:if>" id="firstName" name="firstName" value="<c:out value='${user.firstName}' />" required>
+    <c:if test="${errors != null && errors.firstName != null}">
+        <div class="invalid-feedback"><c:out value="${errors.firstName}" /></div>
+    </c:if>
 </div>
 
 <div class="form-group">
     <label for="lastName">Nom</label>
-    <input type="text" class="form-control" id="lastName" name="lastName" value="<c:out value='${user.lastName}' />" required>
+    <input type="text" class="form-control <c:if test='${errors != null && errors.lastName != null}'>is-invalid</c:if>" id="lastName" name="lastName" value="<c:out value='${user.lastName}' />" required>
+    <c:if test="${errors != null && errors.lastName != null}">
+        <div class="invalid-feedback"><c:out value="${errors.lastName}" /></div>
+    </c:if>
 </div>
 
 <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" name="email" value="<c:out value='${user.email}' />" required>
+    <input type="email" class="form-control <c:if test='${errors != null && errors.email != null}'>is-invalid</c:if>" id="email" name="email" value="<c:out value='${user.email}' />" required>
+    <c:if test="${errors != null && errors.email != null}">
+        <div class="invalid-feedback"><c:out value="${errors.email}" /></div>
+    </c:if>
 </div>
 
 <div class="form-group">
     <label for="password">Mot de passe</label>
-    <input type="password" class="form-control" id="password" name="password" <c:if test="${user == null}">required</c:if>>
+    <input type="password" class="form-control <c:if test='${errors != null && errors.password != null}'>is-invalid</c:if>" id="password" name="password" <c:if test="${user == null}">required</c:if>>
+    <c:if test="${errors != null && errors.password != null}">
+        <div class="invalid-feedback"><c:out value="${errors.password}" /></div>
+    </c:if>
     <c:if test="${user != null}">
-        Laissez vide pour conserver le mot de passe actuel.
+        <small class="form-text text-muted">Laissez vide pour conserver le mot de passe actuel.</small>
     </c:if>
 </div>
 

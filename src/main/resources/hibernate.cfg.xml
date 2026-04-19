@@ -28,5 +28,6 @@
         <!-- Mapping des classes -->
         <mapping class="com.example.model.User"/>
         <mapping class="com.example.model.Product"/>
+        <mapping class="com.example.model.Category"/>
     </session-factory>
 </hibernate-configuration>

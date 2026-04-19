@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.dao.UserDAO;
 import com.example.model.User;
+import com.example.util.ValidationUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 @WebServlet("/update-user")
@@ -37,6 +39,14 @@ public class UserUpdateServlet extends HttpServlet {
             // Ne mettre à jour le mot de passe que s'il est fourni
             if (password != null && !password.isEmpty()) {
                 user.setPassword(password);
+            }
+
+            Map<String, String> errors = ValidationUtil.validate(user);
+            if (!errors.isEmpty()) {
+                request.setAttribute("errors", errors);
+                request.setAttribute("user", user);
+                request.getRequestDispatcher("user-form.jsp").forward(request, response);
+                return;
             }
 
             userDAO.update(user);

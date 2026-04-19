@@ -1,6 +1,7 @@
 package com.example.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,24 +13,37 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Le nom du produit est obligatoire")
+    @Size(max = 100, message = "Le nom ne doit pas dépasser 100 caractères")
     @Column(nullable = false, length = 100)
     private String name;
 
+    @Size(max = 500, message = "La description ne doit pas dépasser 500 caractères")
     @Column(length = 500)
     private String description;
 
+    @NotNull(message = "Le prix est obligatoire")
+    @DecimalMin(value = "0.01", message = "Le prix doit être supérieur à 0")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
+    @NotNull(message = "La quantité en stock est obligatoire")
+    @Min(value = 0, message = "La quantité ne peut pas être négative")
     @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
 
+    @NotBlank(message = "Le SKU est obligatoire")
+    @Size(max = 50, message = "Le SKU ne doit pas dépasser 50 caractères")
     @Column(name = "sku", unique = true, length = 50)
     private String sku;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     // Constructeur par défaut requis par Hibernate
     public Product() {
@@ -100,6 +114,14 @@ public class Product {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override

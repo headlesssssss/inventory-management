@@ -58,6 +58,18 @@
         <version>8.0.28</version>
       </dependency>
 
+      <!-- Bean Validation API and Hibernate Validator -->
+      <dependency>
+          <groupId>org.hibernate.validator</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>8.0.1.Final</version>
+      </dependency>
+      <dependency>
+          <groupId>org.glassfish.expressly</groupId>
+          <artifactId>expressly</artifactId>
+          <version>5.0.0</version>
+      </dependency>
+
       <!-- H2 Database (alternative à MySQL) -->
       <dependency>
         <groupId>com.h2database</groupId>

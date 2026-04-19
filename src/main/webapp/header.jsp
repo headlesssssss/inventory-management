@@ -16,7 +16,8 @@
 
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav mr-auto">
+                    <c:if test="${sessionScope.user != null && sessionScope.user.role == 'ADMIN'}">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                             Utilisateurs
@@ -24,6 +25,16 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="<%= request.getContextPath() %>/users">Liste des Utilisateurs</a>
                             <a class="dropdown-item" href="<%= request.getContextPath() %>/user-form">Ajouter Utilisateur</a>
+                        </div>
+                    </li>
+                    </c:if>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCat" role="button" data-toggle="dropdown">
+                            Catégories
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="<%= request.getContextPath() %>/categories">Liste des Catégories</a>
+                            <a class="dropdown-item" href="<%= request.getContextPath() %>/category-form">Ajouter Catégorie</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -35,6 +46,16 @@
                             <a class="dropdown-item" href="<%= request.getContextPath() %>/product-form">Ajouter Produit</a>
                         </div>
                     </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <c:if test="${sessionScope.user != null}">
+                        <li class="nav-item">
+                            <span class="nav-link text-light">Bienvenue, <c:out value="${sessionScope.user.firstName}" /> (<c:out value="${sessionScope.user.role}" />)</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="<%= request.getContextPath() %>/logout">Déconnexion</a>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </div>
